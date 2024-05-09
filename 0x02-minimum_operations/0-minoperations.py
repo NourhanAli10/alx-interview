@@ -1,15 +1,18 @@
 #!/usr/bin/python3
 """0-minoperations.py"""
 
+
 def minOperations(n):
     """ calculates the fewest number of operations needed to result
     in exactly n H characters in the file"""
-    if n <= 1:
-        return n
-    min_ops = [0] * (n + 1)
-    for i in range(2, n + 1):
-        min_ops[i] = i
-        for j in range(2, i // 2 + 1):
-            if i % j == 0:
-                min_ops[i] = min(min_ops[i], min_ops[j] + i // j)
-    return min_ops[n]
+    if n < 2:
+        return 0
+    factor_list = []
+    i = 1
+    while n != 1:
+        i += 1
+        if n % i == 0:
+            while n % i == 0:
+                n /= i
+                factor_list.append(i)
+    return sum(factor_list)
